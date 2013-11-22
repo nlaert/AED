@@ -12,7 +12,7 @@ public class PriorityQueue <E,P>  {
 	public void add(E elem, P prio, KeyExtractor<E> keyExtrator)
 	{
 		insert(queue[keyExtrator.getKey(elem)], elem);
-		
+		size++;
 	}
 	
 	public E pick()
@@ -37,7 +37,7 @@ public class PriorityQueue <E,P>  {
 		
 	}
 	
-	private static <E> void insert(Node<E> dummy, E newNode) {
+	public static <E> void insert(Node<E> dummy, E newNode) {
 		Node <E> aux = new Node<E>(newNode);
 		aux.next = dummy.next;
 		dummy.next = aux;
