@@ -14,4 +14,8 @@ public class Utente {
 	{
 		return numero;
 	}
+	
+	public String getNome(){
+		return nome;
+	}
 }

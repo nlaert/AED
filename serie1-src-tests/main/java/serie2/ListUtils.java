@@ -30,7 +30,6 @@ public class ListUtils {
 	      if(cmp.compare(j.value, x.value) <= 0){
 	    	  exchange(i,j);
 	    	  i=i.next;
-	        
 	       }
 	      j = j.next;
 	    }
@@ -60,7 +59,7 @@ public class ListUtils {
 		while(listDummy.value!=null){
 			resDummy.value = new Node <String>();
 			dummy = resDummy.value;
-			//dummy.next = dummy.previous = dummy;
+			dummy.next = dummy.previous = dummy;
 			if(!listDummy.value.equals(".")){ //a Lista interna é sem sentinela e não circular
 				copy(listDummy, dummy);
 			}
