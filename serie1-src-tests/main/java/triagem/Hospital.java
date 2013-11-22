@@ -13,6 +13,5 @@ public class Hospital<E,P> extends PriorityQueue<E, P> {
 		
 	}
 	
-	private int corToInt()
 	
 }
