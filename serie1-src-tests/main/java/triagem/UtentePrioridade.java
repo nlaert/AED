@@ -1,6 +1,6 @@
 package triagem;
 
-public class UtentePrioridade<E,P> {
+public class UtentePrioridade {
 	
 	private Prioridade prioridade;
 	private Utente utente;
