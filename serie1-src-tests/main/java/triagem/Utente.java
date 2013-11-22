@@ -4,12 +4,12 @@ public class Utente {
 
 	private int numero;
 	private String nome;
-	private int indice;
+	
 
-	public Utente(int numero, String nome, int indice){
+	public Utente(int numero, String nome){
 		this.numero = numero;
 		this.nome = nome;
-		this.indice = indice;
+		
 	}
 	
 	public int getNumeroUtente()
@@ -21,9 +21,6 @@ public class Utente {
 		return nome;
 	}
 	
-	public int getIndice(){
-		return indice;
-	}
 	
 	public int hashCode()
 	{
