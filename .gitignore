@@ -1,0 +1,14 @@
+
+.metadata/
+main/bin/
+
+
+main/.classpath
+
+main/.project
+
+test/.classpath
+
+test/.project
+
+serie1-src-tests/target/classes/.gitignore

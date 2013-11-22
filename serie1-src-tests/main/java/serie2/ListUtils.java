@@ -5,8 +5,46 @@ import java.util.Comparator;
 public class ListUtils {
 	
 	public static <E>void quicksort(Node<E> first, Node<E> last, Comparator<E> cmp){
-		throw new UnsupportedOperationException();
+		if(first == null ||  last == null )
+		{
+			return;
+		}
+		Node <E> i;
+		if (cmp.compare(last.value, first.value) <0) 
+			return;
+		i = partition(first, last, cmp);
+		quicksort(first, i.previous,cmp);
+		quicksort(i.next, last,cmp);
+		
+			
+		
 	}
+	
+	
+	public static <E> Node partition(Node <E> l, Node <E> r, Comparator <E> cmp){
+	    Node <E> x=r; //pivot
+	    Node <E> i=l;
+	    Node <E> j = l;
+	    while(j.next != r && j.next != null )
+	    {
+	      if(cmp.compare(j.value, x.value) > 0){
+	    	  exchange(i,j);
+	        i=i.next;
+	        
+	       }
+	      j = j.next;
+	    }
+	      i=i.next;
+	      exchange(r,i);
+	      return i;
+	}
+	
+	public static <E> void exchange(Node<E> node1, Node <E> node2){
+		  E tmp = node1.value;
+		  node1.value = node2.value;
+		  node2.value = tmp;		
+		}
+	
 	
 	
 	public static Node<Node<String>> splitBySentence(Node<String> list){
