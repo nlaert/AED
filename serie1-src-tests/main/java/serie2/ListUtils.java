@@ -52,20 +52,23 @@ public class ListUtils {
 		res.next = res.previous = res;
 		if(list.next==list)
 			return res;
-		Node <Node<String>> resDummy = res;
+		insert(res, new Node<Node<String>>());
+		Node <String> listDummy = list.next;
+		Node <Node<String>> resDummy = res.next;
 		Node <String> dummy;
-		list = list.next;
-		while(list.value!=null){
+		
+		while(listDummy.value!=null){
 			resDummy.value = new Node <String>();
 			dummy = resDummy.value;
-			dummy.next = dummy.previous = dummy;
-			while(list.value!=null && !list.value.equals(".")){
-				copy(list, dummy);
-				list = list.next;
+			//dummy.next = dummy.previous = dummy;
+			if(!listDummy.value.equals(".")){ //a Lista interna é sem sentinela e não circular
+				copy(listDummy, dummy);
 			}
-			
-			insert(resDummy, new Node<Node<String>>());
-			resDummy = resDummy.next;
+			else{
+				insert(resDummy, new Node<Node<String>>());
+				resDummy = resDummy.next;
+			}
+			listDummy = listDummy.next;
 		}
 		return res;
 	}
@@ -82,7 +85,11 @@ public class ListUtils {
 	private static <E> void copy(Node<E> src, Node<E> dst) {
 		src.previous.next = src.next;
 		src.next.previous = src.previous;
-		
+		src.next = src;
+		src.previous = src;
+		if(dst.value==null){
+			
+		}
 		insert(dst,src);
 		
 	}
