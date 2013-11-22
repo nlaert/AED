@@ -10,7 +10,7 @@ public class ListUtils {
 			return;
 		}
 		Node <E> i;
-		if (cmp.compare(last.value, first.value) <0) 
+		if (first == last || first.previous == last  || last.previous.next == first )
 			return;
 		i = partition(first, last, cmp);
 		quicksort(first, i.previous,cmp);
@@ -21,21 +21,21 @@ public class ListUtils {
 	}
 	
 	
-	public static <E> Node partition(Node <E> l, Node <E> r, Comparator <E> cmp){
+	public static <E> Node<E> partition(Node <E> l, Node <E> r, Comparator <E> cmp){
 	    Node <E> x=r; //pivot
 	    Node <E> i=l;
 	    Node <E> j = l;
-	    while(j.next != r && j.next != null )
+	    while(j != r && j.next != null )
 	    {
-	      if(cmp.compare(j.value, x.value) > 0){
+	      if(cmp.compare(j.value, x.value) <= 0){
 	    	  exchange(i,j);
-	        i=i.next;
+	    	  i=i.next;
 	        
 	       }
 	      j = j.next;
 	    }
-	      i=i.next;
-	      exchange(r,i);
+	    
+	      exchange(i,r);
 	      return i;
 	}
 	
