@@ -1,8 +1,11 @@
 package triagem;
 
+import serie2.Node;
+
 public class PriorityQueue <E,P> implements KeyExtractor<E> {
 
-	
+	int m = 17;
+	Node <E> [] queue = new Node[m];
 	
 	
 	
@@ -23,7 +26,7 @@ public class PriorityQueue <E,P> implements KeyExtractor<E> {
 	
 	public E pick()
 	{
-		return ;
+		return queue[0].next.value;
 		
 	}
 	
