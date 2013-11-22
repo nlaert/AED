@@ -2,31 +2,22 @@ package triagem;
 
 import serie2.Node;
 
-public class PriorityQueue <E,P> implements KeyExtractor<E> {
+public class PriorityQueue <E,P>  {
 
-	int m = 17;
-	Node <E> [] queue = new Node[m];
+	private int m = 17;
+	private int size = 0;
 	
+	private Node <E> [] queue = new Node[m];
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void add(E elem, Prioridade prio, KeyExtractor<E> keyExtrator)
+	public void add(E elem, P prio, KeyExtractor<E> keyExtrator)
 	{
+		insert(queue[keyExtrator.getKey(elem)], elem);
 		
 	}
 	
 	public E pick()
 	{
-		return queue[0].next.value;
+		return null;
 		
 	}
 	
@@ -36,7 +27,7 @@ public class PriorityQueue <E,P> implements KeyExtractor<E> {
 		return null;
 	}
 	
-	public void update (int key, Prioridade prio)
+	public void update (int key, P prio)
 	{
 		
 	}
@@ -45,11 +36,13 @@ public class PriorityQueue <E,P> implements KeyExtractor<E> {
 	{
 		
 	}
-
-	@Override
-	public int getKey(E e) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	private static <E> void insert(Node<E> dummy, E newNode) {
+		Node <E> aux = new Node<E>(newNode);
+		aux.next = dummy.next;
+		dummy.next = aux;
 	}
+
+	
 	
 }
