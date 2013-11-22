@@ -37,7 +37,7 @@ public class PriorityQueue <E,P>  {
 		
 	}
 	
-	public static <E> void insert(Node<E> dummy, E newNode) {
+	protected static <E> void insert(Node<E> dummy, E newNode) {
 		Node <E> aux = new Node<E>(newNode);
 		aux.next = dummy.next;
 		dummy.next = aux;

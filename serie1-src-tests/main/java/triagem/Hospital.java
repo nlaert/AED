@@ -14,8 +14,7 @@ public class Hospital<E,P> extends PriorityQueue<E, P> {
 		insert(array[cor], aux);
 	}
 	
-<<<<<<< HEAD
-=======
+
 	private int corToInt(String cor){
 		if(cor.equals("Vermelho"))
 			return 4;
@@ -27,6 +26,6 @@ public class Hospital<E,P> extends PriorityQueue<E, P> {
 			return 1;
 		return 0;
 	}
->>>>>>> b9ae65d672cad3742634c70648885f429928bb08
+
 	
 }
