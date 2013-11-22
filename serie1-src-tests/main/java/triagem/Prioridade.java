@@ -7,7 +7,12 @@ public class Prioridade {
 	
 	public Prioridade(String cor, long admissao){
 		this.cor = cor;
-		this.admissao = (admissao<=0)? System.currentTimeMillis() : admissao;
+		this.admissao = admissao;
+	}
+	
+	public Prioridade(String cor){
+		this.cor = cor;
+		this.admissao = System.currentTimeMillis();
 	}
 	
 	public String getCor(){
