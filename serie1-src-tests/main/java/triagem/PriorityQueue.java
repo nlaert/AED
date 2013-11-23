@@ -5,14 +5,13 @@ import serie2.Node;
 public class PriorityQueue <E,P>  {
 
 	private int m = 17;
-	private int size = 0;
 	
 	private Node <E> [] queue = new Node[m];
 	
 	public void add(E elem, P prio, KeyExtractor<E> keyExtrator)
 	{
 		insert(queue[keyExtrator.getKey(elem)], elem);
-		size++;
+
 	}
 	
 	public E pick()
