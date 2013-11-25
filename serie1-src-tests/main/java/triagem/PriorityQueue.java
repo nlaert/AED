@@ -1,17 +1,27 @@
 package triagem;
 
-import serie2.Node;
 
 public class PriorityQueue <E,P>  {
 
-	private int m = 17;
+	private int m ;
+	private ChainingHashTable<E> table;
+	public PriorityQueue(int m)
+	{
+		this.m = m;
+		table = new ChainingHashTable<>(m);
+		
+	}
 	
-	private Node <E> [] queue = new Node[m];
+	public PriorityQueue()
+	{
+		this.m = 17;
+	}
+	
 	
 	public void add(E elem, P prio, KeyExtractor<E> keyExtrator)
 	{
-		insert(queue[keyExtrator.getKey(elem)], elem);
-
+		table.insert(elem);
+		
 	}
 	
 	public E pick()

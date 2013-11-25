@@ -7,11 +7,14 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	
 	private int utentes = 0;
 	private int size ;
+	private int m;
 	private UtentePrioridade[] array;
 	
-	public Hospital (int size)
+	public Hospital (int size, int m)
 	{
+		super(m);
 		this.size = size;
+		this.m = m;
 		array = new UtentePrioridade[size];
 	}
 	
@@ -19,9 +22,9 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	@Override
 	public void add(E elem, P prio, KeyExtractor<E> keyExtrator) {
 		super.add(elem, prio, keyExtrator);
-		UtentePrioridade aux = new UtentePrioridade((Utente)elem, (Prioridade)prio, keyExtrator.getKey(elem));
+		UtentePrioridade aux = new UtentePrioridade((Utente)elem, (Prioridade)prio, keyExtrator.getKey(elem)%m);
 		int cor = aux.getPrioridade().corToInt();
-		array[size++] = aux;
+		array[utentes++] = aux;
 	}
 	
 	
