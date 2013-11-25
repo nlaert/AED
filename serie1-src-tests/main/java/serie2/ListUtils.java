@@ -54,18 +54,19 @@ public class ListUtils {
 		insert(res, new Node<Node<String>>());
 		Node <String> listDummy = list.next;
 		Node <Node<String>> resDummy = res.next;
-		Node <String> dummy;
-		
+		Node <String> tail = new Node <String>();
+		boolean wasPoint = false;
+		resDummy.value = new Node <String>();
+		tail.next = resDummy.value;
 		while(listDummy.value!=null){
-			resDummy.value = new Node <String>();
-			dummy = resDummy.value;
-			dummy.next = dummy.previous = dummy;
-			if(!listDummy.value.equals(".")){ //a Lista interna é sem sentinela e não circular
-				copy(listDummy, dummy);
+			if(!listDummy.value.equals(".")){ 
+				copy(listDummy, tail.next);
+				tail.next = tail.next.next;		
 			}
 			else{
 				insert(resDummy, new Node<Node<String>>());
 				resDummy = resDummy.next;
+				tail.next = resDummy.value;
 			}
 			listDummy = listDummy.next;
 		}
@@ -85,11 +86,14 @@ public class ListUtils {
 		src.previous.next = src.next;
 		src.next.previous = src.previous;
 		src.next = src;
-		src.previous = src;
-		if(dst.value==null){
-			
+//		src.previous = src;
+		if(dst.next==null){
+			dst.next = src;
 		}
-		insert(dst,src);
+		else{
+			dst.next.next = src;
+			src.previous = dst.next;
+		}
 		
 	}
 	
