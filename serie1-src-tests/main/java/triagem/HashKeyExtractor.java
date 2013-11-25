@@ -4,8 +4,10 @@ public class HashKeyExtractor implements KeyExtractor<Object> {
 	private static KeyExtractor<Object> instance = null;
 
 	public static KeyExtractor<Object> getDefaultInstance(){ 
-		if(instance == null) instance = new HashKeyExtractor(); 
-			return (KeyExtractor<Object>)instance;}
+		if(instance == null) 
+			instance = new HashKeyExtractor(); 
+		return (KeyExtractor<Object>)instance;
+		}
 	
 
 
