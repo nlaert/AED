@@ -2,7 +2,7 @@ package triagem;
 
 import serie2.Node;
 
-public class Hospital<E,P> extends PriorityQueue<E, P> {
+public class Hospital<E,P> extends PriorityQueue<E,P> {
 	
 	private Node <UtentePrioridade> [] array = new Node [5];
 	
