@@ -47,56 +47,64 @@ public class ListUtils {
 	
 	
 	public static Node<Node<String>> splitBySentence(Node<String> list){
-		Node <Node<String>> res = new Node<Node<String>>();
+		Node<Node<String>> res = new Node<Node<String>>();
 		res.next = res.previous = res;
-		if(list.next==list)
+		if(list.next==list){
 			return res;
-		insert(res, new Node<Node<String>>());
-		Node <String> listDummy = list.next;
-		Node <Node<String>> resDummy = res.next;
-		Node <String> tail = new Node <String>();
-		boolean wasPoint = false;
-		resDummy.value = new Node <String>();
-		tail.next = resDummy.value;
-		while(listDummy.value!=null){
-			if(!listDummy.value.equals(".")){ 
-				copy(listDummy, tail.next);
-				tail.next = tail.next.next;		
-			}
+		}
+		
+		Node<String> listDummy, head, tail;
+		listDummy = list;
+		head = tail = list.next;
+		
+		while(listDummy.next != list && tail.next != list){
+			if(!tail.value.equals(".")){
+				tail = tail.next;
+			}				
 			else{
-				insert(resDummy, new Node<Node<String>>());
-				resDummy = resDummy.next;
-				tail.next = resDummy.value;
+				if(head == tail){
+					listDummy=tail;
+					head=tail=tail.next;
+				}
+				else{
+					listDummy.next = tail;
+					tail = tail.previous;
+					listDummy.next.previous = listDummy;
+					insert(res,head,tail);
+					listDummy = listDummy.next;
+					head = tail = listDummy.next;
+				}
 			}
-			listDummy = listDummy.next;
+		}
+		if(!tail.value.equals(".")){
+			listDummy.next = list;
+			list.previous = listDummy;
+			insert(res,head,tail);
+		}
+		else{
+			if(head !=tail){
+				listDummy.next = tail;
+				tail = tail.previous;
+				listDummy.next.previous = listDummy;
+				insert(res,head,tail);
+			}
 		}
 		return res;
 	}
 
-
-	private static <E> void insert(Node<E> dummy, Node<E> newNode) {
-		newNode.next = dummy.next;
-		newNode.previous = dummy;
-		dummy.next.previous = newNode;
-		dummy.next = newNode;
-	}
-
-
-	private static <E> void copy(Node<E> src, Node<E> dst) {
-		src.previous.next = src.next;
-		src.next.previous = src.previous;
-		src.next = src;
-//		src.previous = src;
-		if(dst.next==null){
-			dst.next = src;
-		}
-		else{
-			dst.next.next = src;
-			src.previous = dst.next;
-		}
+	private static void insert(Node<Node<String>> dummy, Node<String> head, Node <String> tail) {
+		Node <Node<String>> newNode = new Node<Node<String>>();
 		
+		head.previous = tail.next = null;
+		newNode.value = head;
+		
+		newNode.next = dummy;
+		newNode.previous = dummy.previous;
+		dummy.previous = newNode;
+		newNode.previous.next = newNode;
 	}
+}
 	
 	
 
-}
+

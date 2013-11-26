@@ -11,13 +11,12 @@ public class IO {
 
 	
 	
-	public static void importar(Hospital<Utente, Prioridade> hospital, String nomeFicheiro) throws IOException{
+	public static <E> void importar(Hospital<Utente, Prioridade> hospital, String nomeFicheiro, KeyExtractor<Utente> keyExtractor) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(nomeFicheiro));
 		String line;
 		while((line=br.readLine())!=null){
 			UtentePrioridade aux = getUtentePrioridade(line);
-			HashKeyExtractor h = new HashKeyExtractor();
-			hospital.add(aux.getUtente(),aux.getPrioridade(), h.getDefaultInstance());
+			hospital.add(aux.getUtente(),aux.getPrioridade(), keyExtractor);
 		}
 		br.close();
 	}
@@ -40,14 +39,14 @@ public class IO {
 			p = new Prioridade(cor);
 		else
 			p = new Prioridade(cor,ad);
-		return new UtentePrioridade(new Utente(nUtente,nome),p);		
+		return new UtentePrioridade(new Utente(nUtente,nome),p,0);		
 	}
 	
-	static String[] nomes = {"João ","Nick ", "Bruno ", "Ricardo ", "Miguel ", "José "};
+	static String[] nomes = {"Joï¿½o ","Nick ", "Bruno ", "Ricardo ", "Miguel ", "Josï¿½ "};
 	static String [] apelidos = {"Delgado", "Cardoso", "Neves", "Carvalho", "Costa"};
 	static String [] cores = {"vermelho", "laranja", "amarelo", "verde", "azul"};
 	public static void criaFicheiro(String nomeFicheiro) throws IOException{
-		int s = 10000;
+		int s = 20;
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nomeFicheiro));
 		for (int i=0;i<s;i++){
 			int n = (int)(Math.random() * (6 - 0) + 0);

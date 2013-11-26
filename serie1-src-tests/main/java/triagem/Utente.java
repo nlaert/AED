@@ -1,14 +1,17 @@
 package triagem;
 
-public class Utente {
+public class Utente<E> implements KeyExtractor<E> {
 
 	private int numero;
 	private String nome;
+	
 	
 
 	public Utente(int numero, String nome){
 		this.numero = numero;
 		this.nome = nome;
+		
+		
 		
 	}
 	
@@ -25,5 +28,10 @@ public class Utente {
 	public int hashCode()
 	{
 		return numero;
+	}
+
+	@Override
+	public int getKey(E e) {
+		return e.hashCode();
 	}
 }

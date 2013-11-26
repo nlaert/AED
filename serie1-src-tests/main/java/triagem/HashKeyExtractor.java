@@ -1,16 +1,18 @@
 package triagem;
 
-public class HashKeyExtractor implements KeyExtractor<Object> { 
-	private static KeyExtractor<Object> instance = null;
+public class HashKeyExtractor<E> implements KeyExtractor<E> { 
+	private  KeyExtractor<E> instance = null;
 
-	public static KeyExtractor<Object> getDefaultInstance(){ 
-		if(instance == null) instance = new HashKeyExtractor(); 
-			return (KeyExtractor<Object>)instance;}
+	public KeyExtractor<E> getDefaultInstance(){ 
+		if(instance == null) 
+			instance = new HashKeyExtractor<E>(); 
+		return (KeyExtractor<E>)instance;
+		}
 	
 
 
 	@Override
-	public int getKey(Object e) {
+	public int getKey(E e) {
 		return e.hashCode();
 	}
 

@@ -1,12 +1,13 @@
 package triagem;
 
-public class ChainingHashTable<E> { 
+public class ChainingHashTable<E>  { 
 	
 	Node<E>[] v;
 	int m;
 	KeyExtractor <E> keyExtractor;
+	
 	public ChainingHashTable(int len){
-		this(len,(KeyExtractor<E>)HashKeyExtractor.getDefaultInstance());
+		this(len,new HashKeyExtractor<E>().getDefaultInstance());
 	}
 	public ChainingHashTable(int len, KeyExtractor<E> keyExtractor){
 		v = new Node[len];
@@ -14,7 +15,7 @@ public class ChainingHashTable<E> {
 		this.keyExtractor = keyExtractor; 
 	}
 	
-	private final int index(E e){
+	public final int index(E e){
 		int h=keyExtractor.getKey(e) % m;
 		return (h<0)?h+m:h;
 	}
