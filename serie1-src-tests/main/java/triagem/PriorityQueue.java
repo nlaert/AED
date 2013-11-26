@@ -57,7 +57,10 @@ public class PriorityQueue <E,P>  {
 		aux.next = dummy.next;
 		dummy.next = aux;
 	}
-	
+	public final int index(int key){
+		int h=key % m;
+		return (h<0)?h+m:h;
+	}
 	public final int index(E e, KeyExtractor<E> keyExtractor){
 		int h=keyExtractor.getKey(e) % m;
 		return (h<0)?h+m:h;
@@ -87,6 +90,27 @@ public class PriorityQueue <E,P>  {
 		Node<E> prev = null; 
 		while(curr != null){
 			if(keyExtractor.getKey(e) == curr.value.hashCode())
+			{
+				if(prev == null)
+				{ 
+					table[i] = table[i].next;
+				} 
+				else{ 
+					prev.next = curr.next; 
+				} 
+				return true;
+			}
+			prev = curr; 
+			curr = curr.next;
+		}	
+		return false;
+	}
+	public final boolean delete(int key){ 
+		int i = index(key);
+		Node<E> curr = table[i];
+		Node<E> prev = null; 
+		while(curr != null){
+			if(key == curr.value.hashCode())
 			{
 				if(prev == null)
 				{ 

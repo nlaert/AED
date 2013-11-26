@@ -42,7 +42,7 @@ public class IO {
 		return new UtentePrioridade(new Utente(nUtente,nome),p,0);		
 	}
 	
-	static String[] nomes = {"Jo�o ","Nick ", "Bruno ", "Ricardo ", "Miguel ", "Jos� "};
+	static String[] nomes = {"Joao ","Nick ", "Bruno ", "Ricardo ", "Miguel ", "Jose "};
 	static String [] apelidos = {"Delgado", "Cardoso", "Neves", "Carvalho", "Costa"};
 	static String [] cores = {"vermelho", "laranja", "amarelo", "verde", "azul"};
 	public static void criaFicheiro(String nomeFicheiro) throws IOException{

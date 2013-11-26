@@ -1,8 +1,5 @@
 package triagem;
 
-
-import serie2.Node;
-
 public class Hospital<E,P> extends PriorityQueue<E,P> {
 	
 	private int utentes = 0;
@@ -39,19 +36,45 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 		return keyMaiorPrioridade;
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public E poll()
 	{
 		E keyMaiorPrioridade = (E) array[0].getUtente();
 		super.delete(keyMaiorPrioridade, getKeyExtractor());
+		removeFromHeap(array[0].getUtente().getKey(array[0].getUtente()));
 		return keyMaiorPrioridade;
 	}
 	
+	@Override
+	public void remove(int key){
+		super.delete(key);
+		removeFromHeap(key);
+	}
 	
 	
+	private void removeFromHeap(int key) {
+		int i=0;
+		for (;i<utentes;i++){
+			Utente u = array[i].getUtente();
+			if (u.getKey(u) == key)
+				break;
+		}
+		Prioridade old = array[i].getPrioridade();
+		exchange(array,i,--utentes);
+		array[utentes-1] = null;
+		if (i<utentes){
+			Prioridade n = array[i].getPrioridade();
+			long aux =  cmp.compare(old, n);
+			if(aux>0)
+				decreaseKey(array, i, cmp);
+			else
+				minHeapify(array, i, utentes);
+				
+		}
+		
+	}
 
-	
-	
 
 	public static void HeapSort(UtentePrioridade[] v, int n) {
 		  buildHeap(v,n);
@@ -63,7 +86,6 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 		  for ( ; p >=0 ; --p) 
 		  {
 			  minHeapify(v, p, n);
-			  
 		  }
 	}
 	

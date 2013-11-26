@@ -6,7 +6,7 @@ public class Comparator {
 	{
 		if(prio1.corToInt() == prio2.corToInt())
 		{
-			return prio2.getAdmissao() - prio1.getAdmissao();
+			return prio1.getAdmissao() -  prio2.getAdmissao();
 		}
 		else if(prio1.corToInt() < prio2.corToInt())
 		{
