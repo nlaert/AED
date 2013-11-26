@@ -56,53 +56,42 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	private void removeFromHeap(int key) {
 		int i=0;
 		for (;i<utentes;i++){
-			Utente u = array[i].getUtente();
-			if (u.getKey(u) == key)
+			if(array[i].getUtente().getNumeroUtente() == key)
 				break;
 		}
-		Prioridade old = array[i].getPrioridade();
-		exchange(array,i,--utentes);
-		array[utentes-1] = null;
+		UtentePrioridade old = array[i];
+		exchange(array,i,utentes-1);
+		array[--utentes] = null;
 		if (i<utentes){
-			Prioridade n = array[i].getPrioridade();
-			long aux =  cmp.compare(old, n);
-			if(aux>0)
+			UtentePrioridade n = array[i];
+			long aux =  cmp.compare(old.getPrioridade(), n.getPrioridade());
+			if(aux<0)
 				decreaseKey(array, i, cmp);
 			else
-				minHeapify(array, i, utentes);
+				minHeapify(array, i, utentes,cmp);
 				
 		}
 		
 	}
 
 
-	public static void HeapSort(UtentePrioridade[] v, int n) {
-		  buildHeap(v,n);
-		  
-	}
-	public static void buildHeap(UtentePrioridade[] v,int n){
-		  int p= (n >> 1)-1;
-		  //int p = parent(n);
-		  for ( ; p >=0 ; --p) 
-		  {
-			  minHeapify(v, p, n);
-		  }
-	}
 	
 	
-	public static void minHeapify(UtentePrioridade[] v, int p, int hSize) {
+	public static void minHeapify(UtentePrioridade[] v, int p, int hSize,Comparator cmp) {
 		  int l, r, min;
 		  l = left(p); 
 		  r = right(p);
 		  min=p;
-		  if(l < hSize &&  v[l].getPrioridade().corToInt() < v[p].getPrioridade().corToInt() ) 
+		 // if(l < hSize &&  v[l].getPrioridade().corToInt() < v[p].getPrioridade().corToInt() ) 
+		  if(l < hSize &&  cmp.compare(v[l].getPrioridade(), v[p].getPrioridade()) > 0 ) 
 			 min=l;
-		  if ( r < hSize && v[r].getPrioridade().corToInt() < v[min].getPrioridade().corToInt() ) 
+		  //if ( r < hSize && v[r].getPrioridade().corToInt() < v[min].getPrioridade().corToInt() ) 
+		  if ( r < hSize && cmp.compare(v[r].getPrioridade(), v[min].getPrioridade()) > 0) 
 			 min = r;
 		  if ( min == p ) 
 			 return;
 		  exchange(v, p, min);
-		  minHeapify(v, min, hSize); 
+		  minHeapify(v, min, hSize,cmp); 
 		}
 
 	
@@ -115,7 +104,7 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	
 	public static void decreaseKey(UtentePrioridade [] v, int i ,Comparator cmp) {
 		
-		while(i>0 && cmp.compare(v[i].getPrioridade(), v[parent(i)].getPrioridade()) > 0){
+		while(i>0 && cmp.compare(v[i].getPrioridade(), v[parent(i)].getPrioridade()) >= 0){
 		//while(i>0 && v[i].getPrioridade().corToInt()<v[parent(i)].getPrioridade().corToInt()){
 			exchange(v, i, parent(i));
 			i = parent(i);

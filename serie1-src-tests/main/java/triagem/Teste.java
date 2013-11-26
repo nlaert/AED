@@ -12,7 +12,7 @@ public class Teste {
 		Comparator  cmp = new Comparator();
 		//KeyExtractor<Utente> table = hash.getDefaultInstance();
 		Hospital<Utente, Prioridade> h = new Hospital<Utente, Prioridade>(10000,17, cmp);
-//		Utente u1 = new Utente(35392,"João Rodrigues");
+//		Utente u1 = new Utente(35392,"Joï¿½o Rodrigues");
 //		Utente u2 = new Utente(35466,"Nick Laert");
 //		Prioridade p1 = new Prioridade("Vermelho");
 //		Prioridade p2 = new Prioridade("Vermelho",2);
@@ -25,9 +25,9 @@ public class Teste {
 		IO.importar(h, "Utentes.txt",hash);
 		Utente x = h.pick();
 		x = h.poll();
-		h.add(x, new Prioridade("vermelho",2), hash);
+		h.add(new Utente(35392,"ENGENHEIRO"), new Prioridade("Vermelho",1), hash);
 		x = h.pick();
-		h.remove(x.getKey(x.getNumeroUtente()));
+		//h.remove(x.getKey(x.getNumeroUtente()));
 		System.out.println(x.getNome() + " " + x.getNumeroUtente());
 		System.out.println("ok");
 	}
