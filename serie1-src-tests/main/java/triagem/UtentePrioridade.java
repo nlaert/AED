@@ -26,6 +26,10 @@ public class UtentePrioridade {
 	{
 		return key;
 	}
+
+	public void setPrioridade(Prioridade prio) {
+		prioridade = prio;
+	}
 	
 	
 }

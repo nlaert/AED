@@ -44,7 +44,18 @@ public class PriorityQueue <E,P>  {
 	
 	public void update (int key, P prio)
 	{
-		
+
+		int i = index(key);
+		Node<E> curr = table[i]; 
+		while(curr != null){
+			int cur = curr.hashCode();
+			if(key == curr.value.hashCode()) 
+			{
+				//curr.value;
+			}
+				
+			curr = curr.next;
+		}
 	}
 	
 	public void remove (int key)
@@ -105,27 +116,7 @@ public class PriorityQueue <E,P>  {
 		}	
 		return false;
 	}
-//	public final boolean delete(int key){ 
-//		int i = index(key);
-//		Node<E> curr = table[i];
-//		Node<E> prev = null; 
-//		while(curr != null){
-//			if(key == curr.value.hashCode())
-//			{
-//				if(prev == null)
-//				{ 
-//					table[i] = table[i].next;
-//				} 
-//				else{ 
-//					prev.next = curr.next; 
-//				} 
-//				return true;
-//			}
-//			prev = curr; 
-//			curr = curr.next;
-//		}	
-//		return false;
-//	}
+
 
 	
 	

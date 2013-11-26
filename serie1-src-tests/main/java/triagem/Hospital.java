@@ -61,6 +61,22 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 		}
 		
 	}
+	
+	@Override
+	public void update(int key, P prio) {
+		for(int i = 0;i<utentes;i++)
+		{
+			if(array[i].getKey() == key)
+			{
+				super.search((E)array[i].getUtente(), getKeyExtractor());
+				array[i].setPrioridade((Prioridade)prio);
+				minHeapify(array, i, utentes, cmp);
+				break;
+			}
+				
+		}
+		
+	}
 	public void removeFromHeap(int key)
 	{
 		removeFromHeap(key, -1);
