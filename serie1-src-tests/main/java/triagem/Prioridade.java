@@ -1,6 +1,6 @@
 package triagem;
 
-public class Prioridade {
+public class Prioridade extends Comparator {
 
 	private String cor;
 	private long admissao;
@@ -38,4 +38,6 @@ public class Prioridade {
 	public long getAdmissao(){
 		return admissao;
 	}
+	
+	
 }

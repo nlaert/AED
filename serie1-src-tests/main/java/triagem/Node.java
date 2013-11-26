@@ -1,6 +1,7 @@
 package triagem;
 
 public class Node<E> {
+	
 	public Node<E> next;
 	public E value;
 	

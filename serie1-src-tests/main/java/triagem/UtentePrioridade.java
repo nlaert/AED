@@ -22,10 +22,10 @@ public class UtentePrioridade {
 	{
 		return prioridade;
 	}
-	
 	public int getKey()
 	{
 		return key;
 	}
-
+	
+	
 }

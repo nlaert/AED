@@ -9,22 +9,42 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	private int size ;
 	private int m;
 	private UtentePrioridade[] array;
+	private Comparator cmp;
 	
-	public Hospital (int size, int m)
+	public Hospital (int size, int m, Comparator cmp)
 	{
 		super(m);
 		this.size = size;
 		this.m = m;
 		array = new UtentePrioridade[size];
+		this.cmp = cmp;
 	}
 	
 	
 	@Override
 	public void add(E elem, P prio, KeyExtractor<E> keyExtrator) {
 		super.add(elem, prio, keyExtrator);
+		
 		UtentePrioridade aux = new UtentePrioridade((Utente)elem, (Prioridade)prio, keyExtrator.getKey(elem)%m);
-		int cor = aux.getPrioridade().corToInt();
+		
 		array[utentes++] = aux;
+		decreaseKey(array, utentes-1,cmp);
+	}
+	
+	@Override
+	public E pick()
+	{
+		E keyMaiorPrioridade = (E) array[0].getUtente();
+		//return super.search(keyMaiorPrioridade, getKeyExtractor());
+		return keyMaiorPrioridade;
+		
+	}
+	@Override
+	public E poll()
+	{
+		E keyMaiorPrioridade = (E) array[0].getUtente();
+		super.delete(keyMaiorPrioridade, getKeyExtractor());
+		return keyMaiorPrioridade;
 	}
 	
 	
@@ -69,7 +89,16 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 		  UtentePrioridade tmp = v[i];
 		  v[i] = v[j];
 		  v[j] = tmp;		
+	}
+	
+	public static void decreaseKey(UtentePrioridade [] v, int i ,Comparator cmp) {
+		
+		while(i>0 && cmp.compare(v[i].getPrioridade(), v[parent(i)].getPrioridade()) > 0){
+		//while(i>0 && v[i].getPrioridade().corToInt()<v[parent(i)].getPrioridade().corToInt()){
+			exchange(v, i, parent(i));
+			i = parent(i);
 		}
+}
 	public static int parent(int i ) {
 		  return (i-1)>>1;
 	}
@@ -79,6 +108,10 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 		
 	public static int right(int i ) {
 		  return (i<<1)+2;
+	}
+	
+	public boolean hospitalCheio(){
+		return utentes == size;
 	}
 
 	

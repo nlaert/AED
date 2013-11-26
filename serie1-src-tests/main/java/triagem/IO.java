@@ -46,7 +46,7 @@ public class IO {
 	static String [] apelidos = {"Delgado", "Cardoso", "Neves", "Carvalho", "Costa"};
 	static String [] cores = {"vermelho", "laranja", "amarelo", "verde", "azul"};
 	public static void criaFicheiro(String nomeFicheiro) throws IOException{
-		int s = 10000;
+		int s = 20;
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nomeFicheiro));
 		for (int i=0;i<s;i++){
 			int n = (int)(Math.random() * (6 - 0) + 0);
