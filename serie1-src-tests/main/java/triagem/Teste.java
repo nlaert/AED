@@ -27,7 +27,8 @@ public class Teste {
 		x = h.poll();
 		h.add(new Utente(35392,"ENGENHEIRO"), new Prioridade("Vermelho",1), hash);
 		x = h.pick();
-		//h.remove(x.getKey(x.getNumeroUtente()));
+		h.remove(35392);
+		x=h.poll();
 		System.out.println(x.getNome() + " " + x.getNumeroUtente());
 		System.out.println("ok");
 	}

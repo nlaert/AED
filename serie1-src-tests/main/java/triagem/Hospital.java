@@ -22,9 +22,10 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	public void add(E elem, P prio, KeyExtractor<E> keyExtrator) {
 		super.add(elem, prio, keyExtrator);
 		
-		UtentePrioridade aux = new UtentePrioridade((Utente)elem, (Prioridade)prio, keyExtrator.getKey(elem)%m);
+		UtentePrioridade aux = new UtentePrioridade((Utente)elem, (Prioridade)prio, keyExtrator.getKey(elem));
 		
-		array[utentes++] = aux;
+		array[utentes] = aux;
+		utentes++;
 		decreaseKey(array, utentes-1,cmp);
 	}
 	
@@ -42,23 +43,41 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 	{
 		E keyMaiorPrioridade = (E) array[0].getUtente();
 		super.delete(keyMaiorPrioridade, getKeyExtractor());
-		removeFromHeap(array[0].getUtente().getKey(array[0].getUtente()));
+		removeFromHeap(array[0].getKey());
 		return keyMaiorPrioridade;
 	}
 	
 	@Override
 	public void remove(int key){
-		super.delete(key);
-		removeFromHeap(key);
+		for(int i = 0;i<utentes;i++)
+		{
+			if(array[i].getKey() == key)
+			{
+				super.delete((E)array[i].getUtente(), getKeyExtractor());
+				removeFromHeap(key,i);
+				break;
+			}
+				
+		}
+		
+	}
+	public void removeFromHeap(int key)
+	{
+		removeFromHeap(key, -1);
 	}
 	
-	
-	private void removeFromHeap(int key) {
+	public void removeFromHeap(int key,int indice) {
 		int i=0;
-		for (;i<utentes;i++){
-			if(array[i].getUtente().getNumeroUtente() == key)
-				break;
+		if(indice == -1)
+		{
+			for (;i<utentes;i++){
+				if(array[i].getUtente().getNumeroUtente() == key)
+					break;
+			}
 		}
+		else	i=indice;
+		
+		
 		UtentePrioridade old = array[i];
 		exchange(array,i,utentes-1);
 		array[--utentes] = null;
@@ -83,10 +102,10 @@ public class Hospital<E,P> extends PriorityQueue<E,P> {
 		  r = right(p);
 		  min=p;
 		 // if(l < hSize &&  v[l].getPrioridade().corToInt() < v[p].getPrioridade().corToInt() ) 
-		  if(l < hSize &&  cmp.compare(v[l].getPrioridade(), v[p].getPrioridade()) > 0 ) 
+		  if(l < hSize &&  cmp.compare(v[l].getPrioridade(), v[p].getPrioridade()) >= 0 ) 
 			 min=l;
 		  //if ( r < hSize && v[r].getPrioridade().corToInt() < v[min].getPrioridade().corToInt() ) 
-		  if ( r < hSize && cmp.compare(v[r].getPrioridade(), v[min].getPrioridade()) > 0) 
+		  if ( r < hSize && cmp.compare(v[r].getPrioridade(), v[min].getPrioridade()) >= 0) 
 			 min = r;
 		  if ( min == p ) 
 			 return;
