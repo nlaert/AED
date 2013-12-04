@@ -21,7 +21,7 @@ public class IO {
 		br.close();
 	}
 	
-	private static UtentePrioridade getUtentePrioridade(String line){
+	public static UtentePrioridade getUtentePrioridade(String line){
 		int aux;
 		aux = line.indexOf(';');
 		int nUtente = Integer.parseInt(line.substring(0,aux));
@@ -45,10 +45,9 @@ public class IO {
 	static String[] nomes = {"Joao ","Nick ", "Bruno ", "Ricardo ", "Miguel ", "Jose "};
 	static String [] apelidos = {"Delgado", "Cardoso", "Neves", "Carvalho", "Costa"};
 	static String [] cores = {"vermelho", "laranja", "amarelo", "verde", "azul"};
-	public static void criaFicheiro(String nomeFicheiro) throws IOException{
-		int s = 20;
+	public static void criaFicheiro(String nomeFicheiro, int size) throws IOException{
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nomeFicheiro));
-		for (int i=0;i<s;i++){
+		for (int i=0;i<size;i++){
 			int n = (int)(Math.random() * (6 - 0) + 0);
 			int a = (int)(Math.random() * (5 - 0) + 0);
 			int c = (int)(Math.random() * (5 - 0) + 0);
