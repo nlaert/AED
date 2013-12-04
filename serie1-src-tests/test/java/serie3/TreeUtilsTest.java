@@ -22,6 +22,7 @@ public class TreeUtilsTest {
 		root.right.left.right = new Node<Integer>(6);
 		root.right.right = new Node<Integer>(8);
 		root.right.right.right = new Node<Integer>(9);
+		return root;
 	}
 	
 	
