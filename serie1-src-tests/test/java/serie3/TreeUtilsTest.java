@@ -1,16 +1,11 @@
 package serie3;
 
-<<<<<<< HEAD
-
 
 public class TreeUtilsTest {
-
-	
-=======
-public class TreeUtilsTest {
 	
 	
-	public static Node<Integer> zeroToNineBST(){
+	public static Node<Integer> zeroToNineBST()
+	{
 		Node <Integer> root = new Node<Integer>(4);
 		root.left = new Node<Integer>(2);
 		root.left.right = new Node<Integer>(3);
@@ -25,7 +20,4 @@ public class TreeUtilsTest {
 		return root;
 	}
 	
-	
-
->>>>>>> eab9c1a5dd800c903f5dffbd28cf25934176cbec
 }
