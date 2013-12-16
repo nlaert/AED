@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package serie3;
 
 
@@ -18,6 +19,15 @@ public class TreeUtilsTest {
 		root.right.right = new Node<Integer>(8);
 		root.right.right.right = new Node<Integer>(9);
 		return root;
+=======
+package serie3;	
+
+public class TreeUtilsTest {
+	
+	
+	public static Node<Integer> createBSTFromRange(){
+		return TreeUtils.createBSTFromRange(0, 9);
+>>>>>>> 07a074ac146a0fa5899a537c4d473a9630c53322
 	}
 	
 }

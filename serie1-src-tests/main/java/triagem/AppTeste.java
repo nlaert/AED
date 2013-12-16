@@ -5,7 +5,7 @@ import java.io.IOException;
 public class AppTeste {
 
 	public static void main(String[] args) throws IOException {
-		int size = 1000000;
+		int size = 100000;
 		//IO.criaFicheiro(size+"Utentes", size);
 		HashKeyExtractor<Utente>  hash = new HashKeyExtractor<Utente>();
 		Comparator  cmp = new Comparator();
