@@ -4,7 +4,7 @@ package epidemiaZ;
 
 import java.io.IOException;
 
-public class IO {
+public class App {
 
 
 	
