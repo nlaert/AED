@@ -32,21 +32,9 @@ public class Queue<E> {
 		return aux.value;
 	}
 	
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return dummy.right == dummy;
 	}
 
-	public static void main(String[] args) {
-		int a = 0, b =1, c=2;
-		Queue <Integer>q = new Queue<Integer>();
-		q.dequeue();
-		q.enqueue(a);
-		q.enqueue(b);
-		System.out.println(q.dequeue());
-		q.enqueue(c);
-		System.out.println(q.dequeue());
-		System.out.println(q.dequeue());
-	}
-	
 
 }

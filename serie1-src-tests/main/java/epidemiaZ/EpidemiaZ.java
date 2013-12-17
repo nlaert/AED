@@ -22,7 +22,7 @@ public class EpidemiaZ {
 		int countLine =0, size;
 		while((line=br.readLine())!=null){
 			if(countLine==0){
-				size = Integer.parseInt(line);
+				size = Integer.parseInt(line) +1;
 				edges = new Edge[size];
 				individuos = new Individuo[size];
 			}
@@ -36,16 +36,29 @@ public class EpidemiaZ {
 	}
 
 	private void add(String line) {
-		int id = Integer.parseInt(line.substring(0, line.indexOf('\t')))-1;
+		int id = Integer.parseInt(line.substring(0, line.indexOf('\t')));
 		line = line.substring(line.indexOf('\t')+1);
 		String localidade = line.substring(0, line.indexOf('\t'));
 		line = line.substring(line.indexOf('\t')+1);
 		char estado = line.charAt(0);
+		line = line.substring(line.indexOf('\t')+1);
 		
 		edges[id] = new Edge(id);
 		individuos[id] = new Individuo(id,localidade,estado);
-		for (int i=2;i<line.length();i+=2){
-			insert(id, line.charAt(i)-'0');
+		while(!line.equals(""))
+		{
+			int indexOf = line.indexOf('\t')+1, aux;
+			if(indexOf<=0){
+				aux = Integer.parseInt(line.substring(0));
+				line = "";
+			}
+				
+			else{
+				aux = Integer.parseInt(line.substring(0, indexOf-1));
+				line = line.substring(indexOf);
+			}
+			
+			insert(id, aux);
 		}		
 	}
 
@@ -57,7 +70,9 @@ public class EpidemiaZ {
 	
 	public boolean BST(int idx)
 	{
-		for(int i = 0; i< edges.length; i++)
+		Edge aux;
+		Edge v;
+		for(int i = 1; i< edges.length; i++)
 		{
 			edges[i].setPredecessor(-1);
 			edges[i].setDistancia(-1);
@@ -65,8 +80,39 @@ public class EpidemiaZ {
 		edges[idx].setDistancia(0);
 		Queue <Edge> queue = new Queue<Edge>();
 		queue.enqueue(edges[idx]);
-		
+		while(!queue.isEmpty())
+		{
+			aux = queue.dequeue();
+			if(individuos[aux.id].getEstado() == 'I')
+			{
+				return true;
+			}
+			v = edges[aux.id];
+			while( v.next != null)
+			{
+				v = v.next;
+				if(edges[v.id].getDistancia() == -1)
+				{
+					if(individuos[v.id].getEstado() == 'I')
+					{
+						return true;
+					}
+					edges[v.id].setDistancia(aux.getDistancia()+1);
+					edges[v.id].setPredecessor(aux.id);
+					
+					if(individuos[v.id].getEstado() != 'R')
+					{
+						queue.enqueue(v);
+					}
+					
+				}
+			}
+		}
 		
 		return false;
+	}
+	public boolean becomeInfected(int id)
+	{
+		return BST(id);
 	}
 }

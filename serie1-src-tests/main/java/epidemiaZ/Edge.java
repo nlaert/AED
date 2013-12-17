@@ -12,6 +12,15 @@ public class Edge {
 		this.id = id;
 		next = null;
 	}
+	public int getPredecessor()
+	{
+		return predecessor;
+	}
+	
+	public int getDistancia()
+	{
+		return distancia;
+	}
 	
 	public void setPredecessor(int predecessor)
 	{
