@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import serie3.Queue;
+
 public class EpidemiaZ {
 	
 	private Edge edges[];
@@ -51,5 +53,20 @@ public class EpidemiaZ {
 		Edge aux = new Edge(adjacentId);
 		aux.next = edges[id].next;
 		edges[id].next = aux;		
+	}
+	
+	public boolean BST(int idx)
+	{
+		for(int i = 0; i< edges.length; i++)
+		{
+			edges[i].setPredecessor(-1);
+			edges[i].setDistancia(-1);
+		}
+		edges[idx].setDistancia(0);
+		Queue <Edge> queue = new Queue<Edge>();
+		queue.enqueue(edges[idx]);
+		
+		
+		return false;
 	}
 }
