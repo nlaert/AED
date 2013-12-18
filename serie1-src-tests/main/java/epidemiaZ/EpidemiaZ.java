@@ -8,8 +8,10 @@ import serie3.Queue;
 
 public class EpidemiaZ {
 	
-	private Edge edges[];
-	private Individuo individuos[];
+	private Edge[] edges;
+	private Individuo[] individuos;
+	private Connection[] conjuntos;
+	private Edge infectados;
 	private String data;
 	
 	public EpidemiaZ(String nomeFicheiro) throws IOException{
@@ -25,6 +27,7 @@ public class EpidemiaZ {
 				size = Integer.parseInt(line) +1;
 				edges = new Edge[size];
 				individuos = new Individuo[size];
+				conjuntos = new Connection[size];
 			}
 			else if(countLine==1)
 				data = line;
@@ -45,6 +48,16 @@ public class EpidemiaZ {
 		
 		edges[id] = new Edge(id);
 		individuos[id] = new Individuo(id,localidade,estado);
+		if(estado == 'I')
+		{
+			if(infectados == null)
+				infectados = new Edge(id);
+			else{
+				insert(infectados,id);
+			}
+				
+		}
+			
 		while(!line.equals(""))
 		{
 			int indexOf = line.indexOf('\t')+1, aux;
@@ -58,14 +71,15 @@ public class EpidemiaZ {
 				line = line.substring(indexOf);
 			}
 			
-			insert(id, aux);
+			insert(edges[id], aux);
 		}		
 	}
 
-	private void insert(int id, int adjacentId) {
+
+	private void insert(Edge e , int adjacentId) {
 		Edge aux = new Edge(adjacentId);
-		aux.next = edges[id].next;
-		edges[id].next = aux;		
+		aux.next = e.next;
+		e.next = aux;		
 	}
 	
 	public boolean BST(int idx)
