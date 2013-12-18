@@ -1,7 +1,8 @@
 package epidemiaZ;
 
 
-public class UniaoPorRank {
+public class UniaoPorRank 
+{
 	
 	
 	private int id[], rank[];
@@ -49,9 +50,11 @@ public class UniaoPorRank {
 				id[j]=i;
 			
 			else 
+			{
 			
 				id[i]=j; 
 				rank[j]+=1;
+			}
 			
 			
 		}
