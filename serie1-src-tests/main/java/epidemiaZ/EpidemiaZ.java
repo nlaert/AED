@@ -10,24 +10,27 @@ public class EpidemiaZ {
 	
 	private Edge[] edges;
 	private Individuo[] individuos;
-	private Connection[] conjuntos;
 	private Edge infectados;
 	private String data;
+	private UniaoPorRank union;
+	private int size;
 	
 	public EpidemiaZ(String nomeFicheiro) throws IOException{
 		importar(nomeFicheiro);
+		epidemia();
 	}
 
 	private void importar(String nomeFicheiro) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(nomeFicheiro));
 		String line;
-		int countLine =0, size;
+		int countLine =0;
 		while((line=br.readLine())!=null){
 			if(countLine==0){
 				size = Integer.parseInt(line) +1;
 				edges = new Edge[size];
 				individuos = new Individuo[size];
-				conjuntos = new Connection[size];
+				union = new UniaoPorRank(size);
+				
 			}
 			else if(countLine==1)
 				data = line;
@@ -82,9 +85,19 @@ public class EpidemiaZ {
 		e.next = aux;		
 	}
 	
-	public boolean BST(int idx)
+	public void epidemia(){
+		while(infectados != null){
+			BFS(infectados.id);
+			infectados = infectados.next;
+		}
+			
+		
+	}
+	
+	
+	public void BFS(int idx)
 	{
-		Edge aux;
+		Edge curr;
 		Edge v;
 		for(int i = 1; i< edges.length; i++)
 		{
@@ -96,37 +109,59 @@ public class EpidemiaZ {
 		queue.enqueue(edges[idx]);
 		while(!queue.isEmpty())
 		{
-			aux = queue.dequeue();
-			if(individuos[aux.id].getEstado() == 'I')
-			{
-				return true;
-			}
-			v = edges[aux.id];
+			curr = queue.dequeue(); //inicio
+		
+			v = edges[curr.id]; // proximo
 			while( v.next != null)
 			{
 				v = v.next;
 				if(edges[v.id].getDistancia() == -1)
 				{
-					if(individuos[v.id].getEstado() == 'I')
-					{
-						return true;
-					}
-					edges[v.id].setDistancia(aux.getDistancia()+1);
-					edges[v.id].setPredecessor(aux.id);
+					edges[v.id].setDistancia(edges[curr.id].getDistancia()+1);
+					edges[v.id].setPredecessor(curr.id);
 					
 					if(individuos[v.id].getEstado() != 'R')
 					{
 						queue.enqueue(v);
+						union.uniao(v.id, curr.id,edges[v.id].getDistancia());
 					}
+					
 					
 				}
 			}
 		}
 		
-		return false;
 	}
-	public boolean becomeInfected(int id)
+	
+	public boolean becomeInfected(int idx)
 	{
-		return BST(id);
+		return union.infected(idx);
 	}
+	
+	public void becomeInfected()
+	{
+		int count = 0;
+		for(int i = 1; i<size;i++)
+		{
+			if(becomeInfected(i)){
+				count++;
+				System.out.println(i);
+			}
+		}
+		System.out.println("Total: "+count);
+	}
+	public void becomeInfectedAfterXDays(int idx)
+	{
+		int count = 0;
+		for(int i =1;i<size;i++)
+		{
+			if(union.getDistancia(i)<=idx && union.getDistancia(i)> -1)
+			{
+				System.out.println(i);
+				count++;
+			}
+		}
+		System.out.println("Total: "+count);
+	}
+
 }
