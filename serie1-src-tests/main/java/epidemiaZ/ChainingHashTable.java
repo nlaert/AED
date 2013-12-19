@@ -24,7 +24,9 @@ public class ChainingHashTable<E>  {
 		int i = index(key);
 		Node<E> curr = v[i]; 
 		while(curr != null){
-			if(keyExtractor.getKey(key) == curr.hashCode()) 
+			int aux1 = keyExtractor.getKey(key);
+			int aux2 = curr.value.hashCode();
+			if(aux1 == aux2) 
 				return curr.value;
 			curr = curr.next;
 		}
@@ -42,7 +44,7 @@ public class ChainingHashTable<E>  {
 		Node<E> curr = v[i];
 		Node<E> prev = null; 
 		while(curr != null){
-			if(keyExtractor.getKey(e) == curr.hashCode())
+			if(keyExtractor.getKey(e) == curr.value.hashCode())
 			{
 				if(prev == null)
 				{ 
@@ -56,6 +58,11 @@ public class ChainingHashTable<E>  {
 			prev = curr; curr = curr.next;
 		}	
 		return false;
+	}
+	
+	public Node <E> getRow(int idx)
+	{
+		return v[idx];
 	}
 
 

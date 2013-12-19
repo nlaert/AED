@@ -14,11 +14,16 @@ public class EpidemiaZ {
 	private String data;
 	private UniaoPorRank union;
 	private int size;
+	public ChainingHashTable<CidadeInfectada> hash;
+	private final int hashSize = 7;
 	
 	public EpidemiaZ(String nomeFicheiro) throws IOException{
+		hash = new ChainingHashTable<>(hashSize);
 		importar(nomeFicheiro);
 		epidemia();
 	}
+	
+	
 
 	private void importar(String nomeFicheiro) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(nomeFicheiro));
@@ -51,6 +56,11 @@ public class EpidemiaZ {
 		
 		edges[id] = new Edge(id);
 		individuos[id] = new Individuo(id,localidade,estado);
+		CidadeInfectada ci = new CidadeInfectada(localidade);
+		if(hash.search(ci) == null)
+		{
+			hash.insert(ci);
+		}
 		if(estado == 'I')
 		{
 			if(infectados == null)
@@ -99,12 +109,15 @@ public class EpidemiaZ {
 	{
 		Edge curr;
 		Edge v;
+		
 		for(int i = 1; i< edges.length; i++)
 		{
 			edges[i].setPredecessor(-1);
 			edges[i].setDistancia(-1);
 		}
 		edges[idx].setDistancia(0);
+		CidadeInfectada ci = new CidadeInfectada(individuos[idx].getLocalidade());
+		hash.search(ci).setDias(0);
 		Queue <Edge> queue = new Queue<Edge>();
 		queue.enqueue(edges[idx]);
 		while(!queue.isEmpty())
@@ -124,6 +137,14 @@ public class EpidemiaZ {
 					{
 						queue.enqueue(v);
 						union.uniao(v.id, curr.id,edges[v.id].getDistancia());
+						ci = new CidadeInfectada(individuos[v.id].getLocalidade());
+						if(hash.search(ci).getDias() == -1)
+						{
+							hash.search(ci).setDias(edges[v.id].getDistancia());
+						}
+						else if(hash.search(ci).getDias() > union.getDistancia(v.id))
+							hash.search(ci).setDias(union.getDistancia(v.id));
+						
 					}
 					
 					
@@ -162,6 +183,22 @@ public class EpidemiaZ {
 			}
 		}
 		System.out.println("Total: "+count);
+	}
+	
+	public void riskAreas(int x)
+	{
+		for(int i=0; i<hashSize;i++)
+		{
+			Node<CidadeInfectada> curr = hash.getRow(i);
+			while(curr != null)
+			{
+				if(curr.value.getDias() <= x && curr.value.getDias() > -1)
+					System.out.println(curr.value.getNome() + "(RISK)");
+				else
+					System.out.println(curr.value.getNome() + "(NOT in RISK)");
+				curr = curr.next;
+			}
+		}
 	}
 
 }
