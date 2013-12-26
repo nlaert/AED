@@ -3,39 +3,59 @@ package epidemiaZ;
 
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class App {
 
 
-	
-	
+
+
 	public static void main(String[] args) throws IOException {
 		@SuppressWarnings("unused")
 		EpidemiaZ e = new EpidemiaZ("exemplo.EZ");
-		//e.epidemia();
-//		UniaoPorRank uniao = new UniaoPorRank(13);
-//		uniao.uniao(2, 1,1);
-//		uniao.uniao(3, 1,1);
-//		uniao.uniao(4, 3,2);
-//		uniao.uniao(8, 7,1);
-//		uniao.uniao(6, 7,1);
-//		System.out.println(e.becomeInfected(1));
-//		System.out.println(e.becomeInfected(4));
-//		System.out.println(e.becomeInfected(11));
-//		e.becomeInfected();
-//		e.becomeInfectedAfterXDays(1);
-//		CidadeInfectada c1 = new CidadeInfectada("Lisboa");
-//		CidadeInfectada c2 = new CidadeInfectada("Porto");
-//		CidadeInfectada c3 = new CidadeInfectada("Faro");
-//		CidadeInfectada c4 = new CidadeInfectada("Coimbra");
-//		if(e.hash.search(c1) == null)
-//		{
-//			e.hash.insert(c1);
-//		}
-		//e.hash.delete(c1);
-//		e.hash.search(c1).setDias(4);
-		e.riskAreas(2);
-		
+		Scanner kbd = new Scanner(System.in);
+		int op;
+		int u;
+		while(true){
+			showMenu();
+			op = kbd.nextInt();
+			switch (op){
+			case 1:
+				System.out.println("Introduza o identificador do individuo");
+				u = kbd.nextInt();
+				System.out.println(e.becomeInfected(u));
+				break;
+			case 2:
+				e.becomeInfected();
+				break;
+			case 3:
+				System.out.println("Introduza o numero de dias");
+				u = kbd.nextInt();
+				e.becomeInfectedAfterXDays(u);
+				break;
+			case 4:
+				System.out.println("Introduza o numero de dias");
+				u=kbd.nextInt();
+				e.riskAreas(u);
+				break;
+			case 5:
+				e.e();
+				break;
+			default:
+				return;	
 
-	}
+			}
+		}
+
+
+		}
+		private static void showMenu() {
+			System.out.println("Aplicacao de Epidemias");
+			System.out.println("1 - BecomeInfected? i");
+			System.out.println("2 - BecomeInfected?");
+			System.out.println("3 - BecomeInfectedAfterXDays? x");
+			System.out.println("4 - RiskAreas? x");
+			System.out.println("5 - Sair");
+
+		}
 }

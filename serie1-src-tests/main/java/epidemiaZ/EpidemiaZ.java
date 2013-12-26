@@ -200,5 +200,11 @@ public class EpidemiaZ {
 			}
 		}
 	}
+	
+	public void e()
+	{
+		System.out.println("Aplicacao Fechada!");
+		System.exit(0);
+	}
 
 }
