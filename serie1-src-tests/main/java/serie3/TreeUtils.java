@@ -30,5 +30,21 @@ public class TreeUtils {
 		root.right=createBSTFromRange(mid+1, end);
 		return root;
 	}
+	
+	public  static <E> boolean isAllLeavesInSameLevel(Node <E> root)
+	{
+		if(level(root) >= 1)
+			return true;
+		return false;
+	}
+	
+	public static <E> int level(Node<E> root){
+		if(root==null){
+			return 0;
+		}
+		int k1=level(root.left);
+		int k2=level(root.right);
+		return k1==k2?k1+1:-1;
+	}
 
 }

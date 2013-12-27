@@ -1,8 +1,11 @@
 package epidemiaZ;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import serie3.Queue;
 
@@ -22,10 +25,22 @@ public class EpidemiaZ {
 		importar(nomeFicheiro);
 		epidemia();
 	}
+	public EpidemiaZ(int tamanho) throws IOException
+	{
+		hash = new ChainingHashTable<>(hashSize);
+		createEZ("ficheiroCriado.EZ", tamanho);
+		importar("ficheiroCriado.EZ");
+		epidemia();
+	}
+	
+	public void createEZ(String nomeFicheiro, int tamanho) throws IOException
+	{
+		CreateEZ.create(nomeFicheiro,tamanho, this);
+	}
 	
 	
 
-	private void importar(String nomeFicheiro) throws IOException{
+	public void importar(String nomeFicheiro) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(nomeFicheiro));
 		String line;
 		int countLine =0;
@@ -74,6 +89,7 @@ public class EpidemiaZ {
 		while(!line.equals(""))
 		{
 			int indexOf = line.indexOf('\t')+1, aux;
+			
 			if(indexOf<=0){
 				aux = Integer.parseInt(line.substring(0));
 				line = "";
@@ -89,7 +105,7 @@ public class EpidemiaZ {
 	}
 
 
-	private void insert(Edge e , int adjacentId) {
+	public void insert(Edge e , int adjacentId) {
 		Edge aux = new Edge(adjacentId);
 		aux.next = e.next;
 		e.next = aux;		
