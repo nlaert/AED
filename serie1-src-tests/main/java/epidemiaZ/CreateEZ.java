@@ -14,7 +14,6 @@ public class CreateEZ {
 	public static void create(String nomeFicheiro, int tamanho, EpidemiaZ epidemia) throws IOException
 	{
 		Calendar c = Calendar.getInstance();
-//		System.out.println(c.get(c.YEAR)+"-"+(c.get(c.MONTH)+1)+"-"+c.get(c.DAY_OF_MONTH));
 		PrintWriter writer = new PrintWriter(nomeFicheiro);
 		PrintWriter writerEdges = new PrintWriter("edges.EZ");
 		PrintWriter writeIndividuos = new PrintWriter("individuos.EZ");

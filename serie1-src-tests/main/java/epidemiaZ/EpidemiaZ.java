@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import serie3.Queue;
+
 
 public class EpidemiaZ {
 	
